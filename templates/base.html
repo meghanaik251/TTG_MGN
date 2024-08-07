@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Timetable Scheduler</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/style.css' %}">
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <div class="img">
+                <img src="{% static 'images/klelogo.png' %}" alt="Logo">
+            </div>
+            <div class="logo">
+                <h2>Automatic Timetable Generation For Class</h2>
+                <h4>KLE Technological University, Hubli</h4>
+            </div>
+        </div>
+        <nav class="nav_items">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'addinstructor' %}">Add Instructor</a></li>
+                <li><a href="{% url 'addroom' %}">Add Room</a></li>
+                <li><a href="{% url 'addmeetingtime' %}">Add Event time</a></li>
+                <li><a href="{% url 'addcourse' %}">Add Course</a></li>
+                <li><a href="{% url 'adddepartment' %}">Add Department</a></li>
+                <li><a href="{% url 'addsection' %}">Add Section</a></li>
+                <li><a href="{% url 'home' %}">Generation</a></li>
+            </ul>
+        </nav>
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 KLE Technological University, Hubli</p>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var checkList = document.getElementById('list1');
+        var items = document.getElementById('items');
+        checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+            if (items.classList.contains('visible')) {
+                items.classList.remove('visible');
+                items.style.display = "none";
+            } else {
+                items.classList.add('visible');
+                items.style.display = "block";
+            }
+        }
+
+        items.onblur = function(evt) {
+            items.classList.remove('visible');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+/* Base Styles */
+body {
+	/* background-color: gray; */
+    background-color: rgb(248, 248, 248);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Container */
+.main {
+    width: 85%;
+	height: 85vh;
+    margin: auto;
+    /* background: #fff; */
+    padding: 20px;
+    /* box-shadow: 10px 10px 30px black; */
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Header Styles */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.header .img {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.header .img img {
+    width: 250px;
+    height: 100px;
+}
+
+.header .logo {
+    flex: 2;
+    text-align: start;
+}
+
+.header .logo h2 {
+    color: #333;
+    margin: 0;
+	justify-content: end;
+}
+
+.header .logo h4 {
+    color: #777;
+    margin: 0;
+}
+
+/* Navigation Bar */
+nav.nav_items {
+    background: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+nav.nav_items ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav.nav_items ul li {
+    margin-right: 10px;
+}
+
+nav.nav_items ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+nav.nav_items ul li a:hover {
+    background: #555;
+}
+
+/* Content Section */
+.content {
+    padding: 20px;
+}
+
+.table1{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    overflow: hidden;
+  }
+  
+  .table1 td, th{
+      border-top: 0px solid #ECF0F1;
+      padding: 10px;
+    }
+  
+  .table1 th{
+      background-color: #1ca4a4;
+      color: #fff;
+    }
+
+ 
+/* Footer Styles */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #777;
+    position: fixed;
+    /* background: #343a40;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%; */
+}
+

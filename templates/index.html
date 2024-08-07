@@ -1,0 +1,28 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+{% load static %}
+<div class="inner">
+	<div class="vec">
+		<!-- <div class="img">
+		<img src="{% static 'img/ttg.png' %}">
+		</div> -->
+		<!-- <a href="https://www.freepik.com/free-photos-vectors/calendar">Time-table vector created by stories - www.freepik.com</a> -->
+		 </div>
+</div>
+<div class="card">
+	<div class="img">
+		<!-- <img src="{% static 'images/klelogo.png' %}"> -->
+		</div>
+	<div class="txt">
+		<h2>Timetable Generator</h2>
+		<p>	Add your university class details and generate Time Table.</p>
+	</div>
+	<div class="crdbtn">
+		<a href="{% url 'timetable' %}" class="btn">Generate Timetable</a>
+
+	</div>
+</div>
+{% endblock %}
+
