@@ -187,7 +187,6 @@ class Class:
 data = Data()
 
 
-
 def context_manager(schedule):
     classes = schedule.get_classes()
     context = []
