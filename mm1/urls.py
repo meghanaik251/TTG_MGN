@@ -5,6 +5,8 @@ from. import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('timetable_generation/', views.timetable, name='timetable'),
+    path('timetable_generationwwt/', views.timetablewwt, name='timetablewwt'),
+
     path('add_room/', views.add_room, name='addroom'),
     path('add_instructor/', views.add_instructor, name='addinstructor'),
     path('instructor_list/', views.inst_list_view, name='editinstructor'),

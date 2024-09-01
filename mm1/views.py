@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
 from .models import *
 import random as rnd
 from. forms import *
@@ -40,6 +41,7 @@ class Schedule:
 
     def get_classes(self):
         self._isFitnessChanged = True
+        
         return self._classes
 
     def get_numbOfConflicts(self): return self._numberOfConflicts
@@ -191,17 +193,18 @@ def context_manager(schedule):
     classes = schedule.get_classes()
     context = []
     cls = {}
+
     for i in range(len(classes)):
         cls["section"] = classes[i].section_id
         cls['dept'] = classes[i].department.dept_name
         cls['course'] = f'{classes[i].course.course_name} ({classes[i].course.course_number}, ' \
-                        f'{classes[i].course.max_numb_students}'
+                        f'{classes[i].course.max_numb_satudents})' \
+                        f'{classes[i].course.instructors})'
         cls['room'] = f'{classes[i].room.r_number} ({classes[i].room.seating_capacity})'
         cls['instructor'] = f'{classes[i].instructor.name} ({classes[i].instructor.uid})'
         cls['meeting_time'] = [classes[i].meeting_time.pid, classes[i].meeting_time.day, classes[i].meeting_time.time]
         context.append(cls)
     return context
-
 
 def home(request):
     return render(request, 'index.html', {})
@@ -211,9 +214,13 @@ def timetable(request):
     schedule = []
     population = Population(POPULATION_SIZE)
     generation_num = 0
+    MAX_GENERATIONS = 2
+    
     population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
-    while population.get_schedules()[0].get_fitness() != 1.0:
+    # while population.get_schedules()[0].get_fitness() != 1.0:
+    #     generation_num += 1
+    while population.get_schedules()[0].get_fitness() != 1.0 and generation_num < MAX_GENERATIONS:
         generation_num += 1
         print('\n> Generation #' + str(generation_num))
         population = geneticAlgorithm.evolve(population)
@@ -222,7 +229,25 @@ def timetable(request):
 
     return render(request, 'timetable.html', {'schedule': schedule, 'sections': Section.objects.all(),
                                               'times': MeetingTime.objects.all()})
+def timetablewwt(request):
+    schedule = []
+    population = Population(POPULATION_SIZE)
+    generation_num = 0
+    MAX_GENERATIONS = 2
+    
+    population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
+    geneticAlgorithm = GeneticAlgorithm()
+    # while population.get_schedules()[0].get_fitness() != 1.0:
+    #     generation_num += 1
+    while population.get_schedules()[0].get_fitness() != 1.0 and generation_num < MAX_GENERATIONS:
+        generation_num += 1
+        print('\n> Generation #' + str(generation_num))
+        population = geneticAlgorithm.evolve(population)
+        population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
+        schedule = population.get_schedules()[0].get_classes()
 
+    return render(request, 'timetablewwt.html', {'schedule': schedule, 'sections': Section.objects.all(),
+                                              'times': MeetingTime.objects.all()})
 
 
 def add_instructor(request):
@@ -308,7 +333,9 @@ def delete_meeting_time(request, pk):
 def course_list_view(request):
     context = {
         'courses': Course.objects.all()
+         
     }
+    
     return render(request, 'crslist.html', context)
 
 

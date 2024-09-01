@@ -6,18 +6,26 @@
 
 {% for section in sections %}
 <h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
-    <table class="table1">
-      <colgroup>
+    <table class="table2">
+      <!-- <colgroup>
         <col >
         <col >
         <col>
         <col>
         <col >
         <col>
-      </colgroup>
+      </colgroup> -->
       <tr>
-        <th>Section Id</th>
-        <th>Course</th>
+        <th>Id</th>
+        <th>DIV</th>
+        <td>{{class.meeting_time}}</td>
+
+      </tr>
+
+
+      <tr>
+        <th>Sectionnnn Id</th>
+        <th>Courseee</th>
         <th>Class Room</th>
         <th>Instructor</th>
         <th>Class Timing</th>
@@ -34,9 +42,6 @@
         {% endif %}
       {% endfor %}
     </table>
-
 {% endfor %}
-  <div class="extra">
-
-  </div>
+  
 {% endblock %}
