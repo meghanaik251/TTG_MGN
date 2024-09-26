@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django import template
 
 from .models import *
 import random as rnd
 from. forms import *
+register = template.Library()
+
 
 POPULATION_SIZE = 9
 NUMB_OF_ELITE_SCHEDULES = 1
@@ -214,7 +217,7 @@ def timetable(request):
     schedule = []
     population = Population(POPULATION_SIZE)
     generation_num = 0
-    MAX_GENERATIONS = 2
+    MAX_GENERATIONS = 5
     
     population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
@@ -229,16 +232,39 @@ def timetable(request):
 
     return render(request, 'timetable.html', {'schedule': schedule, 'sections': Section.objects.all(),
                                               'times': MeetingTime.objects.all()})
+
+
+# def timetablewwt(request):
+#     schedule = []
+#     population = Population(POPULATION_SIZE)
+#     generation_num = 0
+#     MAX_GENERATIONS = 2
+    
+#     population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
+#     geneticAlgorithm = GeneticAlgorithm()
+#     # while population.get_schedules()[0].get_fitness() != 1.0:
+#     #     generation_num += 1
+#     while population.get_schedules()[0].get_fitness() != 1.0 and generation_num < MAX_GENERATIONS:
+#         generation_num += 1
+#         print('\n> Generation #' + str(generation_num))
+#         population = geneticAlgorithm.evolve(population)
+#         population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
+#         schedule = population.get_schedules()[0].get_classes()
+
+#     return render(request, 'timetablewwt.html', {'schedule': schedule, 'sections': Section.objects.all(),
+#                                               'times': MeetingTime.objects.all()})
+
+
+
 def timetablewwt(request):
     schedule = []
     population = Population(POPULATION_SIZE)
     generation_num = 0
-    MAX_GENERATIONS = 2
-    
+    MAX_GENERATIONS = 5
+
     population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
-    # while population.get_schedules()[0].get_fitness() != 1.0:
-    #     generation_num += 1
+
     while population.get_schedules()[0].get_fitness() != 1.0 and generation_num < MAX_GENERATIONS:
         generation_num += 1
         print('\n> Generation #' + str(generation_num))
@@ -246,8 +272,20 @@ def timetablewwt(request):
         population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
         schedule = population.get_schedules()[0].get_classes()
 
-    return render(request, 'timetablewwt.html', {'schedule': schedule, 'sections': Section.objects.all(),
-                                              'times': MeetingTime.objects.all()})
+    days_of_week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    time_slots = [
+        "8:00 - 9:00", "9:00 - 10:00", "10:00 - 10:15", "10:15 - 11:15", "11:15 - 12:15",
+        "12:15 - 01:30", "01:30 - 02:30", "02:30 - 03:30", "03:30 - 04:30", "04:30 - 05:30"
+    ]
+
+    return render(request, 'timetablewwt.html', {
+        'schedule': schedule,
+        'sections': Section.objects.all(),
+        'days_of_week': days_of_week,
+        'time_slots': time_slots,
+    })
+
+
 
 
 def add_instructor(request):

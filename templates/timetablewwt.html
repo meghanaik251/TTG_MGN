@@ -1,47 +1,60 @@
-
-
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
 
+
+<h2 class="downloadb" onclick="print()">Download PDF</h2>
+
 {% for section in sections %}
-<h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2>
+<!-- <h2 class="secHead">{{ section.section_id }} ({{ section.department }})</h2> -->
     <table class="table2">
-      <!-- <colgroup>
-        <col >
-        <col >
-        <col>
-        <col>
-        <col >
-        <col>
-      </colgroup> -->
-      <tr>
-        <th>Id</th>
-        <th>DIV</th>
-        <td>{{class.meeting_time}}</td>
-
-      </tr>
-
-
-      <tr>
-        <th>Sectionnnn Id</th>
-        <th>Courseee</th>
-        <th>Class Room</th>
-        <th>Instructor</th>
-        <th>Class Timing</th>
-      </tr>
-      {% for class in schedule %}
-        {% if class.section == section.section_id %}
+        <colgroup>
+            <col><col><col><col><col class="break-column"><col><col><col class="break-column"><col><col><col><col><col><col>
+        </colgroup>
         <tr>
-          <th>{{class.section_id}}</th>
-          <td>{{class.course}}</td>
-          <td>{{class.room}}</td>
-          <td>{{class.instructor}}</td>
-          <td>{{class.meeting_time}}</td>
+            <th>Day</th>
+            <th>DIV</th>
+            <th>8:00 - 9:00</th>
+            <th>9:00 - 10:00</th>
+            <th>10:00 - 10:15</th>
+            <!-- <th style="background-color: #b80c38;">Break</th> 10:00 - 10:15 -->
+            <th>10:15 - 11:15</th>
+            <th>11:15 - 12:15</th>
+            <th>12:15 - 01:30 </th>
+            <!-- <th style="background-color: #b80c38;">Break</th> 12:15 - 01:30 -->
+            <th>01:30 - 02:30</th>
+            <th>02:30 - 03:30</th>
+            <th>03:30 - 04:30</th>
+            <th>04:30 - 05:30</th>
         </tr>
-        {% endif %}
-      {% endfor %}
+        
+        <!-- Loop through each day for the given section -->
+        {% for day in days_of_week %}
+            <tr>
+                <th>{{ day }}</th>
+                <th>{{ section.section_id }}</th>
+                
+                {% for slot in time_slots %}
+                    <td>
+                        <!-- Check if the time slot is a break -->
+                        {% if slot == "10:00 - 10:15" or slot == "12:15 - 01:30" %}
+                            <div style="background-color: #b80c38; ">
+                            </div>
+                        {% else %}
+                            <!-- Display class details if it's not a break -->
+                            {% for class in schedule %}
+                                {% if class.section == section.section_id  %}
+                                    <strong>{{ class.course }}</strong> <br>
+                                    {{ class.instructor }} <br>
+                                    {{ class.room }}
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
     </table>
 {% endfor %}
-  
+
 {% endblock %}
