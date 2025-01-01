@@ -167,6 +167,8 @@ class Class:
         self.course = course
         self.instructor = None
         self.meeting_time = None
+        self.meeting_day=None
+        self.meeting_slot=None
         self.room = None
         self.section = section
 
@@ -260,7 +262,7 @@ def timetablewwt(request):
     schedule = []
     population = Population(POPULATION_SIZE)
     generation_num = 0
-    MAX_GENERATIONS = 5
+    MAX_GENERATIONS = 1
 
     population.get_schedules().sort(key=lambda x: x.get_fitness(), reverse=True)
     geneticAlgorithm = GeneticAlgorithm()
@@ -277,6 +279,12 @@ def timetablewwt(request):
         "8:00 - 9:00", "9:00 - 10:00", "10:00 - 10:15", "10:15 - 11:15", "11:15 - 12:15",
         "12:15 - 01:30", "01:30 - 02:30", "02:30 - 03:30", "03:30 - 04:30", "04:30 - 05:30"
     ]
+    
+    for entry in schedule:
+        meeting_info=str(entry.meeting_time).split()
+        entry.meeting_day=meeting_info[1]
+        entry.meeting_slot=meeting_info[2]+' - '+meeting_info[-1]
+
 
     return render(request, 'timetablewwt.html', {
         'schedule': schedule,

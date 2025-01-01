@@ -35,22 +35,20 @@
                 <th>{{ section.section_id }}</th>
                 
                 {% for slot in time_slots %}
-                    <td>
-                        <!-- Check if the time slot is a break -->
-                        {% if slot == "10:00 - 10:15" or slot == "12:15 - 01:30" %}
-                            <div style="background-color: #b80c38; ">
-                            </div>
-                        {% else %}
-                            <!-- Display class details if it's not a break -->
-                            {% for class in schedule %}
-                                {% if class.section == section.section_id  %}
-                                    <strong>{{ class.course }}</strong> <br>
-                                    {{ class.instructor }} <br>
-                                    {{ class.room }}
-                                {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    </td>
+                <td>
+                    {% if slot == "10:00 - 10:15" or slot == "12:15 - 01:30" %}
+                        <div style="background-color: #b80c38;"></div>
+                    {% else %}
+                        <!-- Check if there's a class in this section, on this day, at this time slot -->
+                        {% for class in schedule %}
+                            {% if class.section == section.section_id and class.meeting_day == day and class.meeting_slot == slot %}
+                                <strong>{{ class.course }}</strong> <br>
+                                {{ class.instructor }} <br>
+                                {{ class.room }} <br>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
                 {% endfor %}
             </tr>
         {% endfor %}
